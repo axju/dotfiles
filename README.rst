@@ -6,3 +6,4 @@ Create link::
 
   ln -s ~/.dotfiles/src/qtile/config.py ~/.config/qtile/config.py  
   ln -s ~/.dotfiles/src/.bashrc ~/.bashrc
+  ln -s ~/.dotfiles/src/.xinitrc ~/.xinitrc
