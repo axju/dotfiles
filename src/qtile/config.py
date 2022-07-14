@@ -72,72 +72,101 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
-    #Key([mod], "r", lazy.run_extension(extension.DmenuRun(
-    #    dmenu_prompt=">",
-    #    #dmenu_font="Andika-8",
-    #    dmenu_bottom=False,
-    #    dmenu_lines=42,
-    #    background="#15181a",
-    #    foreground="#ffff00",
-    #    selected_background="#079822",
-    #    selected_foreground="#fff",
-    #    #dmenu_height=24,  # Only supported by some dmenu forks
-    #))),
+    Key([mod, "control"], "Return", lazy.run_extension(extension.DmenuRun(
+        dmenu_prompt=">",
+        #dmenu_font="Andika-8",
+        dmenu_bottom=False,
+        dmenu_lines=42,
+        background="#15181a",
+        foreground="#ffff00",
+        selected_background="#079822",
+        selected_foreground="#fff",
+        #dmenu_height=24,  # Only supported by some dmenu forks
+    ))),
 
     Key([mod], "space",
         lazy.spawn("rofi -show drun"),
         desc="Launch Rofi menu"
     ),
 
+    Key([mod, "mod1"], "Left", lazy.to_screen(0)),
+    Key([mod, "mod1"], "Right", lazy.to_screen(1)),
+
 ]
 
-groups = [Group(i) for i in "123456789"]
+#groups = [Group(i) for i in "123456789"]
 
-for i in groups:
-    keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
-            Key(
-                [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
-            ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
-        ]
-    )
+#for i in groups:
+#    keys.extend(
+#        [
+#            # mod1 + letter of group = switch to group
+#            Key(
+#                [mod],
+#                i.name,
+#                lazy.group[i.name].toscreen(),
+#                desc="Switch to group {}".format(i.name),
+#            ),
+#            # mod1 + shift + letter of group = switch to & move focused window to group
+#            Key(
+#                [mod, "shift"],
+#                i.name,
+#                lazy.window.togroup(i.name, switch_group=True),
+#                desc="Switch to & move focused window to group {}".format(i.name),
+#            ),
+#            # Or, use below if you prefer not to switch to that group.
+#            # # mod1 + shift + letter of group = move focused window to group
+#            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+#            #     desc="move focused window to group {}".format(i.name)),
+#        ]
+#    )
+
+
+groups = [Group("DEV", layout='monadtall'),
+          Group("WWW", layout='monadtall'),
+          Group("SYS", layout='monadtall'),
+          Group("SYS", layout='monadtall'),
+          Group("DOC", layout='monadtall'),
+          Group("VBOX", layout='monadtall'),
+          Group("CHAT", layout='monadtall'),
+          Group("MUS", layout='monadtall'),
+          Group("VID", layout='monadtall'),
+          Group("GFX", layout='floating')]
+
+
+from libqtile.dgroups import simple_key_binder
+dgroups_key_binder = simple_key_binder("mod4")
+
+
+layout_theme = {"border_width": 2,
+                "margin": 8,
+                "border_focus": "e1acff",
+                "border_normal": "1D2330"
+                }
+
+
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    layout.Max(),
+    #layout.Columns(**layout_theme),
+    #layout.Max(**layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.MonadTall(**layout_theme),
+    layout.Max(**layout_theme),
+    layout.Stack(**layout_theme),
+    layout.RatioTile(**layout_theme),
+    #layout.Tile(**layout_theme),
+    #layout.TreeTab(**layout_theme),
+    #layout.VerticalTile(**layout_theme),
+    layout.Floating(**layout_theme),
 ]
 
 widget_defaults = dict(
-    #font="mono",
-    font="hack",
+    font="mono",
     fontsize=16,
-    padding=3,
+    padding=2,
+    #background=["#dfdfdf", "#dfdfdf"],
 )
 extension_defaults = widget_defaults.copy()
 
@@ -157,13 +186,36 @@ screens = [
                 ),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
+                #widget.QuickExit(),
             ],
             40,
             #border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             #border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
     ),
+    Screen(
+        top=bar.Bar(
+            [
+        #        # widget.CurrentLayout(),
+                widget.GroupBox(),
+        #        # widget.Prompt(),
+        #        widget.WindowName(),
+        #        #widget.Chord(
+        #        #    chords_colors={
+        #        #        "launch": ("#ff0000", "#ffffff"),
+        #        #    },
+        #        #    name_transform=lambda name: name.upper(),
+        #        #),
+        #        #widget.Systray(),
+                #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+        #        #widget.QuickExit(),
+            ],
+            40,
+        #    #border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+        #    #border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+        ),
+    ),
+
 ]
 
 # Drag floating layouts.

@@ -15,3 +15,5 @@ alias update="sudo pacman -Syyu"
 
 alias venv='[ ! -e "venv" ] && python -m venv venv ; source venv/bin/activate'
 alias pull='find . -name .git -print -execdir git pull \;'
+
+complete -cf sudo
