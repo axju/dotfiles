@@ -33,19 +33,14 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 
     Key([mod, "control"], "Return",
-        lazy.spawn("rofi -show drun"),
-        desc="Launch Rofi menu"
+        lazy.spawn("dm-run"),
+        desc="Launch dmenu"
     ),
 
-    Key([mod, "shift"], "Return", lazy.run_extension(extension.DmenuRun(
-        dmenu_prompt=">",
-        dmenu_bottom=False,
-        dmenu_lines=42,
-        background="#15181a",
-        foreground="#ffff00",
-        selected_background="#079822",
-        selected_foreground="#fff",
-    ))),    
+    Key([mod, "shift"], "Return",
+        lazy.spawn("rofi -show drun"),
+        desc="Launch Rofi menu"
+    ),    
 
     Key([mod, "mod1"], "Left", lazy.to_screen(0)),
     Key([mod, "mod1"], "Right", lazy.to_screen(1)),

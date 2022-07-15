@@ -25,8 +25,7 @@ Synology
     cd synology-drive
     makepkg -is
     mkdir ~/sync/
-
-
+    
 
 Tools
 -----
@@ -36,8 +35,6 @@ Tools
     sudo pacman -S vlc
 
 
-
-
 Therrd Part Package AUR
 -----------------------
 ::
@@ -45,8 +42,9 @@ Therrd Part Package AUR
     cd yay
     makepkg -is
 
-dmscripts
-~~~~~~~~~
+dmenu
+~~~~~
+https://gitlab.com/dwt1/dmenu-distrotube
 https://gitlab.com/dwt1/dmscripts.git
 
 ::
