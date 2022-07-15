@@ -6,6 +6,7 @@ from libqtile.utils import guess_terminal
 mod = "mod4"
 terminal = guess_terminal()
 
+
 keys = [
     Key([mod], "Left", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "Right", lazy.layout.right(), desc="Move focus to right"),
@@ -38,18 +39,19 @@ keys = [
 
     Key([mod, "shift"], "Return", lazy.run_extension(extension.DmenuRun(
         dmenu_prompt=">",
-        #dmenu_font="Andika-8",
         dmenu_bottom=False,
         dmenu_lines=42,
         background="#15181a",
         foreground="#ffff00",
         selected_background="#079822",
         selected_foreground="#fff",
-        #dmenu_height=24,  # Only supported by some dmenu forks
     ))),    
 
     Key([mod, "mod1"], "Left", lazy.to_screen(0)),
     Key([mod, "mod1"], "Right", lazy.to_screen(1)),
+
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 set Master 2db+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 set Master 2db-")),
 ]
 
 
@@ -85,6 +87,20 @@ for no, i in enumerate(groups, 1):
     )
 
 
+
+colors = [["#282c34", "#282c34"],
+          ["#1c1f24", "#1c1f24"],
+          ["#dfdfdf", "#dfdfdf"],
+          ["#ff6c6b", "#ff6c6b"],
+          ["#98be65", "#98be65"],
+          ["#da8548", "#da8548"],
+          ["#51afef", "#51afef"],
+          ["#c678dd", "#c678dd"],
+          ["#46d9ff", "#46d9ff"],
+          ["#a9a1e1", "#a9a1e1"]]
+
+
+
 layout_theme = {"border_width": 2,
                 "margin": 8,
                 "border_focus": "e1acff",
@@ -99,6 +115,7 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
+    layout.Bsp(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
     layout.Stack(**layout_theme),
@@ -110,10 +127,11 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="mono",
+    # font="hack",
+    font="Ubuntu Bold",
     fontsize=16,
     padding=2,
-    #background=["#dfdfdf", "#dfdfdf"],
+    background=colors[0],
 )
 extension_defaults = widget_defaults.copy()
 
@@ -121,29 +139,58 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
+                widget.CurrentLayoutIcon(
+                       foreground = colors[2],
+                       background = colors[0],
+                       padding = 0,
+                       scale = 0.7
+                       ),
+                widget.GroupBox(
+                       borderwidth = 3,
+                       active = colors[2],
+                       inactive = colors[7],
+                       highlight_color = colors[1],
+                       highlight_method = "line",
+                       this_current_screen_border = colors[6],
+                       this_screen_border = colors [4],
+                       other_current_screen_border = colors[6],
+                       other_screen_border = colors[4],
+                       foreground = colors[2],
+                       ),
+                widget.WindowName(padding=20),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %H:%M"),
             ],
-            40,
+            26,
         ),
     ),
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
+                widget.CurrentLayoutIcon(
+                       foreground = colors[2],
+                       background = colors[0],
+                       padding = 0,
+                       scale = 0.7
+                       ),
+                widget.GroupBox(
+                       borderwidth = 3,
+                       active = colors[2],
+                       inactive = colors[7],
+                       highlight_color = colors[1],
+                       highlight_method = "line",
+                       this_current_screen_border = colors[6],
+                       this_screen_border = colors [4],
+                       other_current_screen_border = colors[6],
+                       other_screen_border = colors[4],
+                       foreground = colors[2],
+                       ),
+                widget.WindowName(padding=20),
+                widget.Clock(format="%Y-%m-%d %a %H:%M"),
             ],
-            40,
+            26,
         ),
     ),
-
 ]
 
 # Drag floating layouts.
