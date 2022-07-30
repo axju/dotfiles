@@ -115,14 +115,9 @@ https://github.com/justinesmithies/qtile-x-dotfiles
     sudo pacman -S xorg-server xorg-apps xorg-xinit qtile ttf-hack rofi
     sudo pacman -S conky volumeicon xwallpaper
 
-dmenu for dt
-~~~~~~~~~~~~
+dmenu from dt
+~~~~~~~~~~~~~
 https://gitlab.com/dwt1/dmenu-distrotube
-https://gitlab.com/dwt1/dmscripts.git
-
-::
-
-    yay -S dmscripts-git
 
 ::
     
@@ -139,10 +134,22 @@ https://gitlab.com/dwt1/dmscripts.git
     sudo pacman-key --lsign-key C71486C31555B12E
     sudo pacman -S dmenu-distrotube
 
+dmscripts from dt
+~~~~~~~~~~~~~~~~~
+https://gitlab.com/dwt1/dmscripts.git
+
+::
+
+    yay -S dmscripts-git
+
 
 Synology
 --------
-::
+:: 
+    
+    yay -S synology-drive
+
+or::
 
     git clone https://aur.archlinux.org/synology-drive.git
     cd synology-drive
@@ -160,6 +167,7 @@ Tools
     sudo pacman -S vlc
     sudo pacman -S thunderbird
     sudo pacman -S qutebrowser
+    sudo pacman -S code
 
 Bluetooth
 ---------
@@ -191,4 +199,5 @@ Bluetooth
 Audio
 -----
 ::
+
     sudo pacman -S alsa-utils
