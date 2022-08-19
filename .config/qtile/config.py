@@ -47,6 +47,10 @@ keys = [
 
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 set Master 2db+")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 set Master 2db-")),
+
+    Key([mod], "F10", lazy.spawn("xbacklight -inc 10")),
+    Key([mod], "F9", lazy.spawn("xbacklight -dec 10")),
+
 ]
 
 
