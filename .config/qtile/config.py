@@ -1,10 +1,18 @@
-from libqtile import bar, layout, widget, extension
+import os
+import subprocess
+from libqtile import bar, layout, widget, extension, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = guess_terminal()
+
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~')
+    subprocess.call(['/home/axju/.config/qtile/autostart.sh'])
 
 
 keys = [
@@ -38,8 +46,8 @@ keys = [
     ),
 
     Key([mod, "shift"], "Return",
-        lazy.spawn("rofi -show drun"),
-        desc="Launch Rofi menu"
+        lazy.spawn("ulauncher-toggle"),
+        desc="Launch ulauncher"
     ),    
 
     Key([mod, "mod1"], "Left", lazy.to_screen(0)),
@@ -205,6 +213,10 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
+    border_width=2,
+    #margin": 8,
+    border_focus="e1acff",
+    border_normal="1D2330",
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
@@ -214,6 +226,7 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        #Match(title="ulauncher"),
     ]
 )
 auto_fullscreen = True

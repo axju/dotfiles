@@ -31,3 +31,6 @@ alias gitaxju='git config user.name "axju" && git config user.email "moin@axju.d
 complete -cf sudo
 
 
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
