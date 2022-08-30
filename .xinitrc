@@ -33,16 +33,16 @@ fi
 
 setxkbmap de
 
-xrandr --output Virtual-1 --mode 1920x1080
-
-conky -c $HOME/.config/conky/qtile/doom-one-01.conkyrc
-volumeicon &
+#xrandr --output Virtual-1 --mode 1920x1080
+xrandr --auto --output eDP1 --left-of HDMI1
+#conky -c $HOME/.config/conky/qtile/doom-one-01.conkyrc
+#volumeicon &
 
 ### UNCOMMENT ONLY ONE OF THE FOLLOWING THREE OPTIONS! ###
 # 1. Uncomment to restore last saved wallpaper
 # xargs xwallpaper --stretch < ~/.cache/wall &
 # 2. Uncomment to set a random wallpaper on login
-find /usr/share/backgrounds/axju/ -type f | shuf -n 1 | xargs xwallpaper --stretch &
+#find /usr/share/backgrounds/axju/ -type f | shuf -n 1 | xargs xwallpaper --stretch &
 # 3. Uncomment to set wallpaper with nitrogen
 # nitrogen --restore &
 

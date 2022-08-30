@@ -11,3 +11,5 @@ conky -c $HOME/.config/conky/qtile/doom-one-01.conkyrc
 
 libreoffice ~/sync/work/files/2022.ods &
 
+python $HOME/.config/qtile/record.py &
+
