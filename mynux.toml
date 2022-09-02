@@ -1,6 +1,6 @@
 
 
-packages = [
+package = [
     'xorg-server', 'xorg-apps', 'xorg-xinit', 'qtile', 'ttf-hack', 'rofi',
     'conky', 'volumeicon', 'xwallpaper',
     'alacritty', 'ranger',
@@ -15,9 +15,8 @@ packages = [
     # 'chromium',
 ]
 
-post_install_actions = {
-    'bluez': [
-        'sudo systemctl start bluetooth',
-        'sudo systemctl enable bluetooth',
-    ]
-}
+[post_install_cmd]
+bluez = [
+    'sudo systemctl start bluetooth',
+    'sudo systemctl enable bluetooth',
+]
