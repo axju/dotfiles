@@ -4,21 +4,23 @@ the ra record command look like:
     ffmpeg -video_size 1920x1080 -framerate 1 -f x11grab -i :0.0+1366,0 \
             -c:v libx264rgb -crf 0 -preset ultrafast -filter:v "setpts=N/TB/30" -r 30 -y records.mkv
 """
+import subprocess
 from pathlib import Path
 from time import sleep
 from datetime import datetime
-import subprocess
 
-REC_PATH = Path('~/.local/share/qtile/REC').expanduser()
+from conf.defaults import REC_TRIGGER
 
 
 def main():
     print('running main')
     proc = None
     while True:
-        if REC_PATH.is_file() and proc is None:
+        if REC_TRIGGER.is_file() and proc is None:
             print('start record...')
-            path = Path('~/records').expanduser() / (datetime.now().strftime('%Y-%m-%d_%H:%M:%S') + '.mkv')
+            now = datetime.now()
+            path = Path('~/records/raw/' + now.strftime('%Y/%m/%d')).expanduser() / (now.strftime('%H-%M-%S') + '.mkv')
+            path.parent.mkdir(parents=True, exist_ok=True)
             proc = subprocess.Popen([
                 'ffmpeg', '-video_size', '1920x1080', '-framerate', '1',
                 '-f', 'x11grab', '-i', ':0.0+1366,0',
@@ -26,7 +28,7 @@ def main():
                 '-filter:v', 'setpts=N/TB/30', '-r', '30', '-y',
                 path
             ], stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        elif not REC_PATH.is_file() and proc:
+        elif not REC_TRIGGER.is_file() and proc:
             print('now stop record...')
             proc.stdin.write('q'.encode("GBK"))
             proc.communicate()
