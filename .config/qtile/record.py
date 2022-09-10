@@ -5,11 +5,10 @@ the ra record command look like:
             -c:v libx264rgb -crf 0 -preset ultrafast -filter:v "setpts=N/TB/30" -r 30 -y records.mkv
 """
 import subprocess
-from pathlib import Path
 from time import sleep
 from datetime import datetime
 
-from conf.defaults import REC_TRIGGER
+from config import REC_TRIGGER, REC_STORAGE
 
 
 def main():
@@ -18,8 +17,7 @@ def main():
     while True:
         if REC_TRIGGER.is_file() and proc is None:
             print('start record...')
-            now = datetime.now()
-            path = Path('~/records/raw/' + now.strftime('%Y/%m/%d')).expanduser() / (now.strftime('%H-%M-%S') + '.mkv')
+            path = REC_STORAGE / (datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.mkv')
             path.parent.mkdir(parents=True, exist_ok=True)
             proc = subprocess.Popen([
                 'ffmpeg', '-video_size', '1920x1080', '-framerate', '1',

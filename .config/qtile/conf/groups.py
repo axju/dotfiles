@@ -5,8 +5,7 @@ from .defaults import mod
 
 
 groups = [Group("DEV", layout='monadtall'), Group("WWW", layout='monadtall'), Group("SYS", layout='monadtall'),
-          Group("DOC", layout='monadtall'), Group("CHAT", layout='monadtall'), Group("MUS", layout='monadtall'),
-          Group("VID", layout='monadtall'), Group("REC", layout='monadtall')]
+          Group("DOC", layout='monadtall'), Group("MUS", layout='monadtall'), Group("REC", layout='monadtall')]
 
 group_keys = []
 for no, i in enumerate(groups, 1):

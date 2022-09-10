@@ -1,5 +1,9 @@
 
+[file_operations]
+'.bashrc' = 'cp'
 
+
+[os]
 package = [
     'xorg-server', 'xorg-apps', 'xorg-xinit', 'qtile', 'ttf-hack', 'rofi',
     'conky', 'volumeicon', 'xwallpaper',
@@ -15,7 +19,7 @@ package = [
     # 'chromium',
 ]
 
-[post_install_cmd]
+[os.post_install_cmd]
 bluez = [
     'sudo systemctl start bluetooth',
     'sudo systemctl enable bluetooth',
